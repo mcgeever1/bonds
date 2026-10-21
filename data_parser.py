@@ -46,9 +46,15 @@ bills['ZERO RATE'] = np.log(100 / bills['PRICE']) * (year_day_count / bills['TIM
 
 print(bills.head())
 
-scatterplot = sns.scatterplot(data=bills, x="TIME TO MATURITY", y="ZERO RATE")
-plt.title("Zero Rate Curve for Treasury Bills")
-plt.xlabel("Time to Maturity (days)")
-plt.ylabel("Zero Rate (annualized)")
+scatter = sns.scatterplot(data=bills, x="TIME TO MATURITY", y="ZERO RATE")
+scatter.set(
+    title="Observed Treasury Bill Zero Rates - October 14th, 2026",
+    xlabel="Time to Maturity (days)",
+    ylabel="Zero Rate (continuously compounded, decimal)"
+)
+plt.figtext(0.01, 0.02,
+            f"Midpoint prices; bills with ≥ {short_run_cutoff} days to maturity (n = {len(bills)})",
+            ha="left", va="bottom", fontsize=8)
+plt.subplots_adjust(bottom=0.14)
 
-plt.savefig("Zero_Rate_Curve.png")
+plt.savefig("10-14-26_zero_rates_observed.png")
